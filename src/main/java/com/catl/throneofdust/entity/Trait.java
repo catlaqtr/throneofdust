@@ -2,19 +2,23 @@ package com.catl.throneofdust.entity;
 
 public enum Trait {
     INTELLIGENT,
+    UNINTELLIGENT,
+    NAIVE,
     CUNNING,
     RESOURCEFUL,
+    INEPT,
     LOYAL,
-    RUTHLESS,
+    DISLOYAL,
     HONEST,
-    GREEDY,
+    DECEITFUL,
     MERCIFUL,
+    CRUEL,
     DISCIPLINED,
     RECKLESS,
     IMPULSIVE,
-    STUBBORN,
+    CAUTIOUS,
     CHARISMATIC,
-    ANGRY,
+    SHY,
     BRAVE,
     COWARDLY,
     OPTIMISTIC,
@@ -22,6 +26,44 @@ public enum Trait {
     JEALOUS,
     SELFISH,
     AMBITION_DRIVEN,
-    TRUSTING,
-    SUSPICIOUS
+    CONTENT,
+    SUSPICIOUS,
+    TRUSTING;
+
+    private Trait opposite;
+
+    static {
+        INTELLIGENT.opposite = UNINTELLIGENT;
+        UNINTELLIGENT.opposite = INTELLIGENT;
+        NAIVE.opposite = CUNNING;
+        CUNNING.opposite = NAIVE;
+        RESOURCEFUL.opposite = INEPT;
+        INEPT.opposite = RESOURCEFUL;
+        LOYAL.opposite = DISLOYAL;
+        DISLOYAL.opposite = LOYAL;
+        HONEST.opposite = DECEITFUL;
+        DECEITFUL.opposite = HONEST;
+        MERCIFUL.opposite = CRUEL;
+        CRUEL.opposite = MERCIFUL;
+        DISCIPLINED.opposite = RECKLESS;
+        RECKLESS.opposite = DISCIPLINED;
+        IMPULSIVE.opposite = CAUTIOUS;
+        CAUTIOUS.opposite = IMPULSIVE;
+        CHARISMATIC.opposite = SHY;
+        SHY.opposite = CHARISMATIC;
+        BRAVE.opposite = COWARDLY;
+        COWARDLY.opposite = BRAVE;
+        OPTIMISTIC.opposite = PESSIMISTIC;
+        PESSIMISTIC.opposite = OPTIMISTIC;
+        JEALOUS.opposite = SELFISH;
+        SELFISH.opposite = JEALOUS;
+        AMBITION_DRIVEN.opposite = CONTENT;
+        CONTENT.opposite = AMBITION_DRIVEN;
+        SUSPICIOUS.opposite = TRUSTING;
+        TRUSTING.opposite = SUSPICIOUS;
+    }
+
+    public Trait getOpposite() {
+        return opposite;
+    }
 }

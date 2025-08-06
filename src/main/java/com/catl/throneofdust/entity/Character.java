@@ -30,12 +30,14 @@ public class Character {
     private int extractionCount;
     private double betrayalRisk;
     private String location;
-    private String faction;
+    @Enumerated(EnumType.STRING)
+    private Faction faction;
     private int reputation;
     private int loyalty;
 
-    @ElementCollection
-    private List<String> status = new ArrayList<>();
+    @ElementCollection(targetClass = Status.class)
+    @Enumerated(EnumType.STRING)
+    private List<Status> status = new ArrayList<>();
 
     @ElementCollection(targetClass = Trait.class)
     @Enumerated(EnumType.STRING)
@@ -84,8 +86,9 @@ public class Character {
     @ElementCollection
     private List<String> quests = new ArrayList<>();
 
-    @ElementCollection
-    private List<String> titles = new ArrayList<>();
+    @ElementCollection(targetClass = Title.class)
+    @Enumerated(EnumType.STRING)
+    private List<Title> titles = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "player_id")
@@ -201,15 +204,6 @@ public class Character {
         this.location = location;
     }
 
-    public String getFaction() {
-        return faction;
-    }
-
-    public void setFaction(String faction) {
-        this.faction = faction;
-    }
-
-
     public int getReputation() {
         return reputation;
     }
@@ -275,11 +269,19 @@ public class Character {
         this.cooldowns = cooldowns;
     }
 
-    public List<String> getStatus() {
+    public Faction getFaction() {
+        return faction;
+    }
+
+    public void setFaction(Faction faction) {
+        this.faction = faction;
+    }
+
+    public List<Status> getStatus() {
         return status;
     }
 
-    public void setStatus(List<String> status) {
+    public void setStatus(List<Status> status) {
         this.status = status;
     }
 
@@ -347,11 +349,11 @@ public class Character {
         this.relationshipStatuses = relationshipStatuses;
     }
 
-    public List<String> getTitles() {
+    public List<Title> getTitles() {
         return titles;
     }
 
-    public void setTitles(List<String> titles) {
+    public void setTitles(List<Title> titles) {
         this.titles = titles;
     }
 
