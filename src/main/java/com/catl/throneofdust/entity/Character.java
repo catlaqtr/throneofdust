@@ -17,8 +17,6 @@ public class Character {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String role;
     @Min(1)
     private int level;
     private int health;
@@ -43,8 +41,9 @@ public class Character {
     @Enumerated(EnumType.STRING)
     private List<Trait> trait = new ArrayList<>();
 
-    @ElementCollection
-    private List<String> injuryStatus = new ArrayList<>();
+    @ElementCollection(targetClass = InjuryStatus.class)
+    @Enumerated(EnumType.STRING)
+    private List<InjuryStatus> injuryStatus = new ArrayList<>();
 
     @ElementCollection
     private List<String> inventory = new ArrayList<>();
@@ -67,9 +66,14 @@ public class Character {
     @ElementCollection
     private List<String> relationshipStatuses = new ArrayList<>();
 
+    @ElementCollection
+    private List<Stat> stats = new ArrayList<>();
 
     @ElementCollection
     private List<String> buffs = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private CharacterClass characterClass;
 
     @ElementCollection
     private List<String> debuffs = new ArrayList<>();
@@ -108,14 +112,6 @@ public class Character {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
 
@@ -176,6 +172,14 @@ public class Character {
 
     public void setExtractionCount(int extractionCount) {
         this.extractionCount = extractionCount;
+    }
+
+    public CharacterClass getCharacterClass() {
+        return characterClass;
+    }
+
+    public void setCharacterClass(CharacterClass characterClass) {
+        this.characterClass = characterClass;
     }
 
     public double getBetrayalRisk() {
@@ -293,11 +297,11 @@ public class Character {
         this.trait = trait;
     }
 
-    public List<String> getInjuryStatus() {
+    public List<InjuryStatus> getInjuryStatus() {
         return injuryStatus;
     }
 
-    public void setInjuryStatus(List<String> injuryStatus) {
+    public void setInjuryStatus(List<InjuryStatus> injuryStatus) {
         this.injuryStatus = injuryStatus;
     }
 

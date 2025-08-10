@@ -1,6 +1,8 @@
 package com.catl.throneofdust.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
     @Entity
@@ -16,6 +18,12 @@ import java.util.List;
 
         @ManyToMany
         private List<Character> participants;
+
+        @Enumerated(EnumType.STRING)
+        private RaidState state = RaidState.PREPARING;
+
+        private LocalDateTime preparationEndTime;
+        private LocalDateTime raidEndTime;
 
         public int getMaxGroupSize() {
             return maxGroupSize;
@@ -63,5 +71,29 @@ import java.util.List;
 
         public void setParticipants(List<Character> participants) {
             this.participants = participants;
+        }
+
+        public RaidState getState() {
+            return state;
+        }
+
+        public void setState(RaidState state) {
+            this.state = state;
+        }
+
+        public LocalDateTime getPreparationEndTime() {
+            return preparationEndTime;
+        }
+
+        public void setPreparationEndTime(LocalDateTime preparationEndTime) {
+            this.preparationEndTime = preparationEndTime;
+        }
+
+        public LocalDateTime getRaidEndTime() {
+            return raidEndTime;
+        }
+
+        public void setRaidEndTime(LocalDateTime raidEndTime) {
+            this.raidEndTime = raidEndTime;
         }
     }
