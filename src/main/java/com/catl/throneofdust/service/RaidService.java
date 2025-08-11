@@ -31,6 +31,9 @@ public class RaidService {
         }
         return raid;
     }
+    public List<Raid> getAvailableRaids(){
+        return raidRepository.findByState(RaidState.PREPARING);
+    }
 
     public Raid startRaid(long raidId){
         Raid raid = raidRepository.findById(raidId).orElseThrow();
@@ -39,14 +42,22 @@ public class RaidService {
         return raidRepository.save(raid);
     }
 
-    public Raid progressRaid(long raidId){
+    public RaidResult progressRaidWithResult(long raidId) {
         Raid raid = raidRepository.findById(raidId).orElseThrow();
+        boolean completed = false;
+        boolean success = false;
+        String reward = null;
+
         if(raid.getState() == RaidState.WAITING && LocalDateTime.now().isAfter(raid.getPreparationEndTime())){
             raid.setState(RaidState.IN_PROGRESS);
             raid.setRaidEndTime(LocalDateTime.now().plusHours(1));
         } else if (raid.getState() == RaidState.IN_PROGRESS && LocalDateTime.now().isAfter(raid.getRaidEndTime())) {
             raid.setState(RaidState.COMPLETED);
+            completed = true;
+            success = new Random().nextBoolean();
+            reward = success ? raid.getReward() : null;
         }
-        return raidRepository.save(raid);
+        raidRepository.save(raid);
+        return new RaidResult(raid.getId(), raid.getState(), completed, success, reward);
     }
 }

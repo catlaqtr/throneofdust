@@ -39,7 +39,12 @@ public class RaidController {
 
     }
     @PostMapping("/{raidId}/progress")
-    public Raid progressRaid(@PathVariable long raidId) {
-        return raidService.progressRaid(raidId);
+    public RaidResult progressRaid(@PathVariable long raidId) {
+        return raidService.progressRaidWithResult(raidId);
     }
+    @GetMapping("/available")
+    public List<Raid> getAvailableRaids() {
+        return raidService.getAvailableRaids();
+    }
+
 }
